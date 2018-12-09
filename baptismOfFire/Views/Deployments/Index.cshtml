@@ -13,6 +13,9 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CreateDate)
+            @Html.DisplayNameFor(model => model.Certificate.CN)
+            @Html.DisplayNameFor(model => model.Certificate.ExpiresDate)
+            @Html.DisplayNameFor(model => model.Server.Name)
         </th>
         <th></th>
     </tr>
@@ -21,6 +24,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.CreateDate)
+            @Html.DisplayFor(modelItem => item.Certificate.CN)
+            @Html.DisplayFor(modelItem => item.Certificate.ExpiresDate)
+            @Html.DisplayFor(modelItem => item.Server.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
