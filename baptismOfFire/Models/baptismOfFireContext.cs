@@ -20,5 +20,7 @@ namespace baptismOfFire.Models
         }
 
         public System.Data.Entity.DbSet<baptismOfFire.Models.Deployment> Deployments { get; set; }
+        public System.Data.Entity.DbSet<baptismOfFire.Models.Server> Servers { get; set; }
+        public System.Data.Entity.DbSet<baptismOfFire.Models.Certificate> Certificates { get; set; }
     }
 }
