@@ -70,6 +70,9 @@ namespace baptismOfFire.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.AllCertificates=db.Certificates.ToList();
+
             return View(deployment);
         }
 
