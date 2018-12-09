@@ -88,8 +88,15 @@ namespace baptismOfFire.Controllers
 
                 // This "SelectedCertificateID" stuff is doing nothing helpful!
                 int SelectedCertificateId = int.Parse(Request.Form["SelectedCertificateId"]);
-                deployment.Certificate = db.Certificates.Find(SelectedCertificateId);
+                Certificate newCertificate = db.Certificates.Find(SelectedCertificateId);
+                newCertificate.Deployments.Add(deployment);
 
+
+                Certificate oldCertificate = db.Certificates.Find(deployment.ID);
+                oldCertificate.Deployments.Remove(deployment);
+                
+                db.Entry(newCertificate).State = EntityState.Modified;
+                db.Entry(oldCertificate).State = EntityState.Modified;
                 db.Entry(deployment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
