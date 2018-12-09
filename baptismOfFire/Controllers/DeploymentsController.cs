@@ -81,10 +81,15 @@ namespace baptismOfFire.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CreateDate")] Deployment deployment)
+        public ActionResult Edit([Bind(Include = "ID,CreateDate,SelectedCertificateId")] Deployment deployment)
         {
             if (ModelState.IsValid)
             {
+
+                // This "SelectedCertificateID" stuff is doing nothing helpful!
+                int SelectedCertificateId = int.Parse(Request.Form["SelectedCertificateId"]);
+                deployment.Certificate = db.Certificates.Find(SelectedCertificateId);
+
                 db.Entry(deployment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
