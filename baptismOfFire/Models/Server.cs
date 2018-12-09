@@ -9,5 +9,7 @@ namespace baptismOfFire.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<Deployment> Deployments { get; set; }
     }
 }
