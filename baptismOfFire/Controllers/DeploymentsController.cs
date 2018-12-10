@@ -88,19 +88,21 @@ namespace baptismOfFire.Controllers
             if (ModelState.IsValid)
             {
 
-                // This "SelectedCertificateID" stuff is doing nothing helpful!
+                // Obtain current deoloyment from ID
+                Deployment fullDeployment = db.Deployments.Find(deployment.ID);
+
+                // Take returned ID and ontain new certificate
                 int SelectedCertificateId = int.Parse(Request.Form["SelectedCertificateId"]);
                 Certificate newCertificate = db.Certificates.Find(SelectedCertificateId);
-                newCertificate.Deployments.Add(deployment);
-
-
-                Certificate oldCertificate = db.Certificates.Find(deployment.ID);
-                oldCertificate.Deployments.Remove(deployment);
                 
+                // Update with new certificate reference               
+                fullDeployment.Certificate = newCertificate;
+                
+                // Save changes
                 db.Entry(newCertificate).State = EntityState.Modified;
-                db.Entry(oldCertificate).State = EntityState.Modified;
-                db.Entry(deployment).State = EntityState.Modified;
+                db.Entry(fullDeployment).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(deployment);
