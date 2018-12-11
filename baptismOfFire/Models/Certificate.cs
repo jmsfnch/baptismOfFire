@@ -10,6 +10,7 @@ namespace baptismOfFire.Models
     {
         public int ID { get; set; }
         public string CN { get; set; }
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ExpiresDate { get; set; }
 
