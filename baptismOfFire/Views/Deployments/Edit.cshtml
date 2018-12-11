@@ -16,7 +16,6 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ID)
-@*@  -ready to remove?    @Html.HiddenFor(model => model.Certificate.ID)    *@
 
     <div class="form-group">
         @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -27,8 +26,12 @@
         <div>
             @* Dropdown list using Viewbag content *@
 
-            @* NOTE: Work to modify the SelectList to present the current selected certificate as the deafult *@
-            @Html.DropDownList("selectedCertificateId", new SelectList(ViewBag.AllCertificates, "ID", "CN"));
+            @* NOTE: Work to modify the SelectList to present the current selected certificate as the deafult
+                (Returns "selectedCertificateID" response;  contents of listbox is generated from the listbag;
+                    default value is "unchanged" --this returns a "" string which is ignored by the deployment controller code)
+                *@
+
+            @Html.DropDownList("selectedCertificateId", new SelectList(ViewBag.AllCertificates, "ID", "CN"),"unchanged");
         </div>
     </div>
 

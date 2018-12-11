@@ -91,16 +91,41 @@ namespace baptismOfFire.Controllers
                 // Obtain current deoloyment from ID
                 Deployment fullDeployment = db.Deployments.Find(deployment.ID);
 
-                // Take returned ID and ontain new certificate
-                int SelectedCertificateId = int.Parse(Request.Form["SelectedCertificateId"]);
-                Certificate newCertificate = db.Certificates.Find(SelectedCertificateId);
+                // Check certificate changes
+
+                string inputSelectedCertificateId = Request.Form["SelectedCertificateId"];
+                int SelectedCertificateId;
+
+                try
+                {
+                    SelectedCertificateId = int.Parse(inputSelectedCertificateId);
+                }
+                catch
+                {
+                    // The selected certificate ID is blank or invalid
+                    SelectedCertificateId = 0;
+                }
                 
-                // Update with new certificate reference               
-                fullDeployment.Certificate = newCertificate;
+
+                if (SelectedCertificateId > 0) {
+                 
+                    // Take returned ID and ontain new certificate
+                    Certificate newCertificate = db.Certificates.Find(SelectedCertificateId);
+
+                    // Update with new certificate reference               
+                    fullDeployment.Certificate = newCertificate;
+
+                    // Flag certificate entity as changed later save
+                    //db.Entry(newCertificate).State = EntityState.Modified;
+                }
+
+                // Transfer updated create date data
+                fullDeployment.CreateDate = deployment.CreateDate;
                 
-                // Save changes
-                db.Entry(newCertificate).State = EntityState.Modified;
+                // Flag deployment as modified
                 db.Entry(fullDeployment).State = EntityState.Modified;
+
+                // Save all modified database entities
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
