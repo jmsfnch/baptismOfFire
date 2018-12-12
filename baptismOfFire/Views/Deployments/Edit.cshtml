@@ -31,7 +31,7 @@
                     default value is "unchanged" --this returns a "" string which is ignored by the deployment controller code)
                 *@
 
-            @Html.DropDownList("selectedCertificateId", new SelectList(ViewBag.AllCertificates, "ID", "CN"),"unchanged");
+            @Html.DropDownList("selectedCertificateId", new SelectList(ViewBag.AllCertificates, "ID", "CN"),"Current - " + this.Model.Certificate.CN);
         </div>
     </div>
 

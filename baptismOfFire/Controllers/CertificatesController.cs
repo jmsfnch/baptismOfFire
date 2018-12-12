@@ -109,6 +109,8 @@ namespace baptismOfFire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // Need to add some error checking to warn of assocaited deployments!!!
+
             Certificate certificate = db.Certificates.Find(id);
             db.Certificates.Remove(certificate);
             db.SaveChanges();
